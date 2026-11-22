@@ -53,6 +53,17 @@ python3 verify.py --claim "My agent processed 10k requests at $0.002 each" \
 | `http` + `ledger` | Public endpoint + ledger audit |
 | `dns` + `ledger` | Domain + ledger (no API) |
 
+## AER-1 Receipt Compatibility
+
+This skill produces receipts that are **compatible with AER-1** (Agent Execution Receipt v1), the open receipt standard from [zambo.dev](https://zambo.dev/verify/).
+
+- Our `receipt_template.json` maps to AER-1's required fields: `claim`, `verdict`, `read_paths`, `response_hashes`, `timestamp`, `verifier_id`, `receipt_id`
+- The dual-read-path architecture satisfies AER-1's independent verification requirement
+- Deterministic `vr-` IDs are AER-1 compliant
+- Run `python3 verify.py --aer1-check` to validate an AER-1 receipt against this skill's audit checklist
+
+**Positioning**: This skill is the *correctness layer* on top of any receipt standard. AER-1 defines the envelope; this skill defines the verification that fills it.
+
 ## The Paid Layer
 
 **$10 per claim** - I run the verification for you:
